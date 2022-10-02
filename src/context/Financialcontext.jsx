@@ -1,35 +1,57 @@
 import {createContext, useState, useEffect} from 'react';
-import axios from 'axios';
+import Fmp from '../apis/Fmp';
 
 export const Financialcontext = createContext();
 
-export const FinancialInfoContextProvider = (props) =>{
+export const FinancialInfoContextProvider = ({children}) =>{
+	
+	const [income, setIncome] = useState([]);
+	const [balance, setBalance] = useState([]);
+	const [cash, setCash] = useState([]);
 
-	const [findoc, setFindoc] = useState();
+
+	const fetchInfo = async (name) =>{
+		const response = await Fmp.get(`/income-statement/${name}`,{
+			params:{
+				limit: 120
+			}
+		});
+
+		const balanceSheet = await Fmp.get(`/balance-sheet-statement/${name}`,{
+			params:{
+				limit: 120
+			}
+		});
+
+		const cashFlow = await Fmp.get(`/cash-flow-statement/${name}`,{
+			params:{
+				limit: 120
+			}
+		});
+
+		const data = response;
+		let finData = data.data;
+
+		const assetData = balanceSheet;
+		let balanceSheetData = assetData.data;
+
+		const cashData = cashFlow;
+		let cashFlowState = cashData.data;
+
+
+		setIncome(finData);
+		setBalance(balanceSheetData);
+		setCash(cashFlowState);
+	}
+	useEffect(()=>{
+		fetchInfo();
+	}, []);
+
+
 	
 
-	const getCompany = async (url) =>{
-		try{
-			const {data} = await axios(url);
-			if(data){
-				setFindoc(data)
-			}
-			else{
-				setFindoc([])
-			}
-		}
-		catch(error){
-
-		}
-	}
-
-
-	useEffect(()=>{
-		setFindoc();
-	}, [findoc]);
-
-	return <Financialcontext.Provider value={{getCompany}}>
-	{props.children}
+	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash}}>
+	{children}
 	</Financialcontext.Provider>
 
 }

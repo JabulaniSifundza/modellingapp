@@ -1,12 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
-import Fmp from '../apis/Fmp';
+import {useContext} from 'react';
+import {Financialcontext} from '../context/Financialcontext';
 
 export default function Searchbar() {
 	const [search, setSearch] = useState();
-	const [company, setCompany] = useState([]);
-	const [balance, setBalance] = useState([]);
-	const [cash, setCash] = useState([]);
+	const {fetchInfo, income} = useContext(Financialcontext);
+
 
 	function fuckUpAcomma(n){
 		var numerals = n.toString().split(".");
@@ -17,119 +17,143 @@ export default function Searchbar() {
 
 		return numberPart.replace(thousands,",") + (decimalPart ? "." + decimalPart: "");
 	}
-	
-
-	const fetchCash = async (name) =>{
-		const response = await Fmp.get(`/cash-flow-statement/${name}`,{
-			params:{
-				limit: 120
-			}
-		});
-		const data = response;
-		let cashData = data.data;
-		setCash(cashData);
-	}
-
-	const fetchBalance = async (name) =>{
-		const response = await Fmp.get(`/balance-sheet-statement/${name}`,{
-			params:{
-				limit: 1
-			}
-		});
-		const data = response;
-		let balanceSheet = data.data;
-		setBalance(balanceSheet);
-
-	}
-
-
-
-	const fetchInfo = async (name) =>{
-		const response = await Fmp.get(`/income-statement/${name}`,{
-			params:{
-				limit: 120
-			}
-		});
-		
-		const data = response;
-		let finData = data.data;
-		setCompany(finData)
-		
-
-	}
-	useEffect(()=>{
-		fetchInfo();
-	}, []);
-
-	useEffect(()=>{
-		fetchCash();
-	}, []);
-
-	useEffect(()=>{
-		fetchBalance();
-	}, []);
 
   return (<Container>
 			<div className="searchForm">
 				<input type="text" id="search" value={search} placeholder="Search Company" className="searchInput" onChange={(e) => setSearch(e.target.value)}/>
-				<button className="searchComp" onClick={() => fetchInfo(search)}>Search</button>
+				<button className="searchBtn" onClick={(e) => fetchInfo(search)}>Search</button>
 			</div>
 				{
-					company.map((financialData)=>{
+					
+					income.map((financialData)=>{
 						return (
-							<div>
-								<section key={financialData.fillingDate}>
-									<h4>Year</h4>
+							<div className="companyIncome">
+								<section key={financialData.fillingDate} className="yearlyIncomeMetrics">
+								<div className="incomeState">
+								<div className="calendarYear">
 									<h3>{financialData.calendarYear}</h3>
 									<p>filed: {financialData.fillingDate}</p>
-
-									<h4>Revenue</h4>
-									<h3>{fuckUpAcomma(financialData.revenue)}</h3>
-
-									<h4>Cost of Revenue</h4>
-									<h3>{fuckUpAcomma(financialData.costOfRevenue)}</h3>
-
-									<h4>Selling, General and Administrative costs</h4>
-									<h3>{fuckUpAcomma(financialData.sellingGeneralAndAdministrativeExpenses)}</h3>
-
-									<h4>Research and Development</h4>
-									<h3>{fuckUpAcomma(financialData.researchAndDevelopmentExpenses)}</h3>
-
-									<h4>Interest Expense</h4>
-									<h3>{fuckUpAcomma(financialData.interestExpense)}</h3>
-
-									<h4>Interest Income</h4>
-									<h3>{fuckUpAcomma(financialData.interestIncome)}</h3>
-
-									<h4>Net Income</h4>
-									<h3>{fuckUpAcomma(financialData.netIncome)}</h3>
+								</div>
+								<div className="metricCont">
+									<div className="expenseMetrics">
+										
+										<h4>Cost of Revenue</h4>
+										<h3>$ {fuckUpAcomma(financialData.costOfRevenue)}</h3>
+										<h4>Interest Expense</h4>
+										<h3>$ {fuckUpAcomma(financialData.interestExpense)}</h3>
+										<h4>Selling, General and Administrative costs</h4>
+										<h3>$ {fuckUpAcomma(financialData.sellingGeneralAndAdministrativeExpenses)}</h3>
+										<h4>Research and Development</h4>
+										<h3>$ {fuckUpAcomma(financialData.researchAndDevelopmentExpenses)}</h3>
+										
+									</div>
+									<div className="incomeMetrics">
+									
+										<h4>Revenue</h4>
+										<h3>$ {fuckUpAcomma(financialData.revenue)}</h3>
+										<h4>Interest Income</h4>
+										<h3>$ {fuckUpAcomma(financialData.interestIncome)}</h3>
+										<h4>Operating Income</h4>
+										<h3>$ {fuckUpAcomma(financialData.operatingIncome)}</h3>
+										<h4>Net Income</h4>
+										<h3>$ {fuckUpAcomma(financialData.netIncome)}</h3>
+										
+									</div>
+								</div>
+								
+							</div>
 								</section>
 							</div>
 						)
-					})
-					
+					})	
 				}
 	</Container>
   );
 }
 
 const Container = styled.div`
-margin-left: 220px;
-margin-top: 10px;
-width: 80%;
+margin-left: 190px;
+font-family: 'Segoe UI';
+width: 78%;
+background-color: #252525;
+overflow-x: hidden;
+padding-bottom: 12px;
+color: #FFFFFF;
 .searchForm{
 	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	.searchInput{
 		width: 100%;
-		color: #000000;
+		padding-top: 8px;
+		color: #FFFFFF;
 		border: none;
 		border-bottom: 2px solid #FFFFFF;
-		font-size: 34px;
+		font-size: 18px;
+		background-color: #252525;
+		margin-left: 6px;
 	}
-	.searchComp{
-		width: 60px;
+	.searchBtn{
+		width: 120px;
 		height: 40px;
 		background-color: #3772FF;
 		color: #FFFFFF;
+		margin-right: 920px;
+		margin-top: 12px;
+		border: none;
+		border-radius: 4px;
+		box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+		cursor: pointer;
+		font-size: 18px;
 	}
+}
+.yearlyIncomeMetrics{
+	width: 90%;
+	border-radius: 4px;
+	margin-top: 16px;
+	border-bottom: 2px solid #FFFFFF;
+	.incomeState{
+		margin-top: 16px;
+		width: 90%;
+		.calendarYear{
+			width: 100%;
+			height:;
+			top: 0
+			h3{
+				font-size:18px;
+			}
+			p{
+				font-size:14px;
+			}
+		}
+		.metricCont{
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			.expenseMetrics{
+				display: flex;
+				border-right: 1px solid #FFFFFF;
+				flex-direction: column;
+				h4{
+					font-size: 14px;
+				}
+				h3{
+					font-size:18px;
+					margin-top: -20px;
+				}
+			}
+			.incomeMetrics{
+				display: flex;
+				flex-direction: column;
+				h4{
+					font-size: 14px;
+				}
+				h3{
+					margin-top: -20px;
+					font-size: 18px;
+				}
+			}
+		}
+
+	}
+
 }`;

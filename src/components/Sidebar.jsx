@@ -2,7 +2,7 @@ import React from 'react';
 import styled from "styled-components";
 
 
-export const Sidebar = () =>{
+export default function Sidebar(){
 
 	return <Container>
 		<div className="navigator">
@@ -16,22 +16,34 @@ export const Sidebar = () =>{
 const Container = styled.div`
 position: fixed;
 height: 100%;
-width: 200px;
+width: 180px;
 z-index: 1;
 top: 0;
 left: 0;
+font-family: 'Segoe UI';
 overflow-x: hidden;
 padding-top: 60px;
 background-color: #252525;
 .navigator{
 	width: 100%;
-	border-top:2px solid #FFFFFF;
-	border-bottom:2px solid #FFFFFF;
 	background-color: #252525;
-	.button{
+	margin-top: 140px;
+	.goTo{
 		cursor: pointer;
 		color: #FFFFFF;
 		background-color: #252525;
-		font-size: 34px;
+		font-size: 20px;
+		border: none;
+		margin-top:10px;
+		margin-bottom: 12px;
+		border-radius: 4px;
+		box-shadow: rgba(0, 0, 0, 0.34) 0px 4px 12px;
+		width: 175px;
+		height: 80px;
+		&:hover {
+			background-color: #3772FF;
+			border-radius: 4px;
+			border: 0.25px solid #FFFFFF;
+		  }
 	}
 }`;

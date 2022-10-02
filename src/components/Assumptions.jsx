@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 
-export const Assumptions = () =>{
+export default function Assumptions(){
 	const [assumptions, setAssumptions] = useState();
 
 
@@ -17,36 +17,42 @@ export const Assumptions = () =>{
 
 			<div className="assumption">
 				<label htmlFor="salesAssumptions">Sales</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="salesAssumptions"/>
+				<input type="number" placeholder="Growth/Decline rate (%)" id="salesAssumptions" className="assumptionInput"/>
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="costAssumptions">Costs</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="costAssumptions"/>
+				<input type="number" placeholder="Growth/Decline rate (%)" id="costAssumptions" className="assumptionInput"/>
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="TaxesAssumptions">Taxes</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="TaxesAssumptions" />
+				<input type="number" placeholder="Growth/Decline rate (%)" id="TaxesAssumptions" className="assumptionInput" />
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="interestAssumptions">Interest Rate</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="interestAssumptions" />
+				<input type="number" placeholder="Growth/Decline rate (%)" id="interestAssumptions" className="assumptionInput" />
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="inflationAssumptions">Inflation</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="inflationAssumptions" />
+				<input type="number" placeholder="Growth/Decline rate (%)" id="inflationAssumptions" className="assumptionInput" />
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="moreOrLessRegulation">Regulation</label>
-				<select name="moreOrLessRegulation" id="moreOrLessRegulation">
+				<select name="moreOrLessRegulation" id="moreOrLessRegulation" className="assumptionInput">
+				<option value="Answer" defaultValue>More or Less</option>
 					<option value="More">More</option>
 					<option value="Less">Less</option>
 				</select>
 			</div>
+		</div>
+
+		<div>
+		<button className="generateModel">Create Model</button>
+		
 		</div>
 	
 	</Container>
@@ -55,22 +61,42 @@ export const Assumptions = () =>{
 const Container = styled.div`
 position: fixed;
 height: 100%;
-width: 200px;
+width: 320px;
 z-index: 1;
 top: 0;
 right: 0;
 overflow-x: hidden;
 padding-top: 20px;
 background-color: #252525;
+color: #FFFFFF;
+font-family: 'Segoe UI';
+border-left: 8px solid #161616;
+border-right: none;
+border-top: none;
+
+
+.generateModel{
+	width: 120px;
+	height: 40px;
+	background-color: #3772FF;
+	color: #FFFFFF;
+	margin-top: 20px;
+	border: none;
+	border-radius: 4px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	cursor: pointer;
+	font-size: 18px;
+}
 .assumptionsContainer{
 	width: 100%;
 	.assumptionsHeader{
+		font-family: 'Segoe UI';
 		width: 100%;
 		h3{
-			font-size: 34px;
+			font-size: 18px;
 		}
 		h4{
-			font-size: 21.01px;
+			font-size: 14px;
 			color: #FFFFFF;
 		}
 		.title{
@@ -79,18 +105,28 @@ background-color: #252525;
 
 	}
 	.assumption{
+		font-family: 'Segoe UI';
 		color: #FFFFFF;
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		input{
-			width: 100%;
-			border: none;
+		font-size: 18px;
+		margin-top:20px;
+		margin-bottom: 20px;
+		align-text: left;
+		.assumptionInput{
 			border-bottom: 2px solid #FFFFFF;
+			background-color: #252525;
+			color: #FFFFFF;
+			border-right: none;
+			border-left: none;
+			border-top: none;
+			
 		}
 		select{
 			width: 100%;
 			border: none;
 			border-bottom: 2px solid #FFFFFF;
+			margin-right: 20px;
 		}
 	}
 }`;
