@@ -1,16 +1,11 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {useContext} from 'react';
 import {Financialcontext} from '../context/Financialcontext';
 
 export default function Assumptions(){
 
-	const [sales, setSales] = useState();
-	const [costs, setCosts] = useState();
-	const [interest, setInterest] = useState();
-	const [inflation, setinflation] = useState();
-	const [regulation, setRegulation] = useState();
-	const {income} = useContext(Financialcontext);
+	const {sales, costs, interest, inflation, regulation, setSales, setCosts, setInterest, setinflation, setRegulation} = useContext(Financialcontext);
 
 	return <Container>
 		<div className="assumptionsContainer">

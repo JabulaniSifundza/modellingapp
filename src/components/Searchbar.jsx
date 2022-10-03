@@ -30,35 +30,35 @@ export default function Searchbar() {
 							<div className="companyIncome">
 								<section key={financialData.fillingDate} className="yearlyIncomeMetrics">
 								<div className="incomeState">
-								<div className="calendarYear">
-									<h3>{financialData.calendarYear}</h3>
-									<p>filed: {financialData.fillingDate}</p>
-								</div>
-								<div className="metricCont">
-									<div className="expenseMetrics">
-										
-										<h4>Cost of Revenue</h4>
-										<h3>$ {fuckUpAcomma(financialData.costOfRevenue)}</h3>
-										<h4>Interest Expense</h4>
-										<h3>$ {fuckUpAcomma(financialData.interestExpense)}</h3>
-										<h4>Selling, General and Administrative costs</h4>
-										<h3>$ {fuckUpAcomma(financialData.sellingGeneralAndAdministrativeExpenses)}</h3>
-										<h4>Research and Development</h4>
-										<h3>$ {fuckUpAcomma(financialData.researchAndDevelopmentExpenses)}</h3>
-										
+									<div className="calendarYear">
+										<h3>{financialData.calendarYear}</h3>
+										<p>filed: {financialData.fillingDate}</p>
 									</div>
-									<div className="incomeMetrics">
-									
-										<h4>Revenue</h4>
-										<h3>$ {fuckUpAcomma(financialData.revenue)}</h3>
-										<h4>Interest Income</h4>
-										<h3>$ {fuckUpAcomma(financialData.interestIncome)}</h3>
-										<h4>Operating Income</h4>
-										<h3>$ {fuckUpAcomma(financialData.operatingIncome)}</h3>
-										<h4>Net Income</h4>
-										<h3>$ {fuckUpAcomma(financialData.netIncome)}</h3>
+									<div className="metricCont">
+										<div className="expenseMetrics">
+											
+											<h4>Cost of Revenue</h4>
+											<h3>$ {fuckUpAcomma(financialData.costOfRevenue)}</h3>
+											<h4>Interest Expense</h4>
+											<h3>$ {fuckUpAcomma(financialData.interestExpense)}</h3>
+											<h4>Selling, General and Administrative costs</h4>
+											<h3>$ {fuckUpAcomma(financialData.sellingGeneralAndAdministrativeExpenses)}</h3>
+											<h4>Research and Development</h4>
+											<h3>$ {fuckUpAcomma(financialData.researchAndDevelopmentExpenses)}</h3>
+											
+										</div>
+										<div className="incomeMetrics">
 										
-									</div>
+											<h4>Revenue</h4>
+											<h3>$ {fuckUpAcomma(financialData.revenue)}</h3>
+											<h4>Interest Income</h4>
+											<h3>$ {fuckUpAcomma(financialData.interestIncome)}</h3>
+											<h4>Operating Income</h4>
+											<h3>$ {fuckUpAcomma(financialData.operatingIncome)}</h3>
+											<h4>Net Income</h4>
+											<h3>$ {fuckUpAcomma(financialData.netIncome)}</h3>
+											
+										</div>
 								</div>
 								
 							</div>

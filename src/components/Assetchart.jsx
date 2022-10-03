@@ -119,8 +119,10 @@ export default function Incomegraphs(){
 
 
 	return <Container>
-	<Chart options ={options} series={series} width="70%"/>
-			
+		<div className="titleCont">
+			<h3>Total Assets and Total Liabilities</h3>
+		</div>
+		<Chart options ={options} series={series} width="70%"/>
 	</Container>
 
 
@@ -129,4 +131,14 @@ export default function Incomegraphs(){
 const Container = styled.div`
 margin-left: 190px;
 font-family: 'Segoe UI';
-`
+.titleCont{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	padding-bottom: 8px;
+	h3{
+		color: #FFFFFF;
+		font-size: 26px;
+	}
+}`

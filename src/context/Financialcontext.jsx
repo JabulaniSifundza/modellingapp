@@ -46,7 +46,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		const cashData = cashFlow;
 		let cashFlowState = cashData.data;
 
-		
+
 		setIncome(finData);
 		setBalance(balanceSheetData);
 		setCash(cashFlowState);
@@ -62,6 +62,10 @@ export const FinancialInfoContextProvider = ({children}) =>{
 
 	let interestExpMax = Math.max.apply(Math, income.map((prof)=>{
 		return prof.interestExpense
+	}));
+
+	let interestIncMax = Math.max.apply(Math, income.map((prof)=>{
+		return prof.interestIncome
 	}));
 
 	let cogsMax = Math.max.apply(Math, income.map((rev)=>{
@@ -87,6 +91,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		firstYear.revenue = (salesRate*revenueMax) + (inflationRate*revenueMax);
 		firstYear.income = salesRate*incomeMax;
 		firstYear.interestExp = interestRate*interestExpMax;
+		firstYear.interestInc = interestRate*interestIncMax;
 		firstYear.cogs = costsRate*cogsMax;
 		firstYear.sga = (costsRate*sgaMax) + (inflationRate*sgaMax);
 
@@ -100,6 +105,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearTwo.revenue = (salesRate^2)*revenueMax + ((inflationRate^2)*revenueMax);
 		yearTwo.income = (salesRate^2)*incomeMax;
 		yearTwo.interestExp =(interestRate^2)*interestExpMax;
+		yearTwo.interestInc =(interestRate^2)*interestIncMax;
 		yearTwo.cogs = (costsRate^2)*cogsMax;
 		yearTwo.sga = ((costsRate^2)*sgaMax) + ((inflationRate^2)*sgaMax)
 
@@ -111,6 +117,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearThree.revenue = (salesRate^3)*revenueMax + ((inflationRate^3)*revenueMax);
 		yearThree.income = (salesRate^3)*incomeMax;
 		yearThree.interestExp = (interestRate^3) * interestExpMax;
+		yearThree.interestInc =(interestRate^3)*interestIncMax;
 		yearThree.cogs = (costsRate^3)*cogsMax;
 		yearThree.sga = ((costsRate^3)*sgaMax) + ((inflationRate^3)*sgaMax);
 		return yearThree;
@@ -121,6 +128,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearFour.revenue = (salesRate^4)*revenueMax + ((inflationRate^4)*revenueMax);
 		yearFour.income = (salesRate^4)*incomeMax;
 		yearFour.interestExp = (interestRate^4) * interestExpMax;
+		yearFour.interestInc =(interestRate^4)*interestIncMax;
 		yearFour.cogs = (costsRate^4)*cogsMax;
 		yearFour.sga = ((costsRate^4)*sgaMax) + ((inflationRate^4)*sgaMax);
 
@@ -133,6 +141,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearFive.revenue = (salesRate^5)*revenueMax + ((inflationRate^5)*revenueMax);
 		yearFive.income = (salesRate^5)*incomeMax;
 		yearFive.interestExp = (interestRate^5) * interestExpMax;
+		yearFive.interestInc =(interestRate^5)*interestIncMax;
 		yearFive.cogs = (costsRate^5)*cogsMax;
 		yearFive.sga = ((costsRate^5)*sgaMax) + ((inflationRate^5)*sgaMax);
 
@@ -149,7 +158,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 
 	
 
-	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash, setSales, setCosts, setInterest, setinflation, setRegulation, newModel}}>
+	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash, sales, costs, interest, setSales, inflation, regulation, setCosts, setInterest, setinflation, setRegulation, newModel}}>
 	{children}
 	</Financialcontext.Provider>
 

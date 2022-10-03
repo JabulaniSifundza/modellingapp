@@ -69,7 +69,10 @@ export default function Cashcharts(){
 	}
 
 	return <Container>
-	<Chart options ={options} series={series} width="70%"/>
+		<div className="titleCont">
+			<h3>Starting and Ending Cash Balance</h3>
+		</div>
+		<Chart options ={options} series={series} width="70%"/>
 			
 	</Container>
 
@@ -79,4 +82,15 @@ export default function Cashcharts(){
 const Container = styled.div`
 margin-left: 190px;
 font-family: 'Segoe UI';
+.titleCont{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	padding-bottom: 8px;
+	h3{
+		color: #FFFFFF;
+		font-size: 26px;
+	}
+}
 `
