@@ -12,66 +12,6 @@ export default function Assumptions(){
 	const [regulation, setRegulation] = useState();
 	const {income} = useContext(Financialcontext);
 
-	let revenueMax = Math.max.apply(Math, income.map((rev)=>{
-		return rev.revenue
-	}));
-
-	let incomeMax = Math.max.apply(Math, income.map((prof)=>{
-		return prof.netIncome
-	}));
-
-	let interestExpMax = Math.max.apply(Math, income.map((prof)=>{
-		return prof.interestExpense
-	}));
-
-	let cogsMax = Math.max.apply(Math, income.map((rev)=>{
-		return rev.costOfRevenue
-	}));
-
-	let sgaMax = Math.max.apply(Math, income.map((rev)=>{
-		return rev.sellingGeneralAndAdministrativeExpenses
-	}));
-
-
-	let salesRate = (sales/100) + 1;
-	let costsRate = (costs/100) + 1;
-	let interestRate = (interest/100) + 1;
-	let inflationRate = (inflation/100) + 1;
-	
-	let regEffect = ()=>{
-		return (regulation === "More" ? (salesRate + 0.02) : (salesRate - 0.02));
-	}
-
-	let projectionsYear1 = ()=>{
-		let firstYear = {}; 
-		firstYear.revenue = (salesRate*revenueMax) + (inflationRate*revenueMax);
-		firstYear.income = salesRate*incomeMax;
-		firstYear.interestExp = interestRate*interestExpMax;
-		firstYear.cogs = costsRate*cogsMax;
-		firstYear.sga = (costsRate*sgaMax) + (inflationRate*sgaMax);
-
-		return firstYear;
-
-	}
-
-	let projectionsYear2 = ()=>{
-		let yearTwo = {};
-		yearTwo.revenue = (salesRate^2)*revenueMax 
-	}
-	let projectionsYear3 = ()=>{
-		let yearThree = {};
-		yearThree.revenue = (salesRate^3)*revenueMax
-	}
-	let projectionsYear4 = ()=>{
-		let yearFour = {};
-		yearFour.revenue = (salesRate^4)*revenueMax	
-	}
-	let projectionsYear5 = ()=>{
-		let yearFive = {};
-		yearFive.revenue = (salesRate^5)*revenueMax	
-	}
-
-
 	return <Container>
 		<div className="assumptionsContainer">
 			<div className="assumptionsHeader">

@@ -39,7 +39,7 @@ export default function Incomegraphs(){
 		dataLabels: {
 			enabled: false
 		},
-		colors: ["#FF1654", "#247BA0"],
+		colors: ["#FF1654", "#3772FF"],
 		stroke: {
 		width: [4, 4]
 		},
@@ -84,17 +84,17 @@ export default function Incomegraphs(){
 				  },
 				  axisBorder: {
 					show: true,
-					color: "#247BA0"
+					color: "#3772FF"
 				  },
 				  labels: {
 					style: {
-					  colors: "#247BA0"
+					  colors: "#3772FF"
 					}
 				  },
 				  title: {
 					text: "Liabilities",
 					style: {
-					  color: "#247BA0"
+					  color: "#3772FF"
 					}
 				  }
 				},
