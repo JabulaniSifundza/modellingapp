@@ -1,47 +1,97 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
 
 
 export default function CreateYourOwnModel(){
+	
+	const [company, setCompany] = useState();
+	const [revenue, setRevenue] = useState();
+	const [cogs, setCogs] = useState();
+	const [sga, setSGA] = useState();
+	const [marketing, setMarketing] = useState();
+	const [research, setResearch] = useState();
+	const [depreciation, setDepreciation] = useState();
+
+
+	const [taxation, setTaxation] = useState();
+	const [net, setNet] = useState(); 
+	const [ratios, setRatios] = useState();
+	const [operating, setOperating] = useState();
+	const [grossIncome, setgrossIncome] = useState();
+
+	const calcTax = (income)=>{
+		return 0.21 * income;
+	}
+
+	const calcNet = (ebita, tax)=>{
+		return ebita - tax;
+		
+	}
+
+	const calcOperating = (gross, sga, marketing, depreciation, research)=>{
+		return gross - (sga + marketing + depreciation + research);
+	}
+
+	const calcGross =(rev, cogs)=>{
+		return rev - cogs;
+
+	}
+
+	setTaxation(calcTax);
+	setNet(calcNet);
+	setOperating(calcOperating);
+	setgrossIncome(calcGross)
+
+
+
+
+	useEffect(()=>{
+		calcTax();
+		calcNet();
+		calcOperating();
+		calcGross();
+
+	});
+	
 
 
 	return (
 		<Container>
 			<div className="statementTitle">
-				<input type="text" className="companyName" />
+				<input type="text" className="companyName" value={company} onChange={(e)=> setCompany(e.target.value)}/>
 				<h3>Income Statement</h3>
 				<p></p>
 			</div>
 			<div className="desiredStatement">
 				<h5>Revenue</h5>
-				<input type="number" className="amount" />
+				<input type="number" className="amount" value={revenue} onChange={(e)=> setRevenue(e.target.value)}/>
 
 				<h5>Cost of Revenue</h5>
-				<input type="number" className="amount" />
+				<input type="number" className="amount" value={cogs}  onChange={(e)=> setCogs(e.target.value)}/>
 			
 				<h5>Gross Income</h5>
-				<span className="calculatedAmnt"></span>
+				<span className="calculatedAmnt"  value={grossIncome}>{calcGross(revenue, cogs)}</span>
 
 				<h5>Selling, General and Administrative</h5>
-				<input type="number" className="amount" />
+				<input type="number" className="amount"  value={sga}  onChange={(e)=> setSGA(e.target.value)}/>
 
 				<h5>Marketing Expense</h5>
-				<input type="number" className="amount" />
+				<input type="number" className="amount" value={marketing}  onChange={(e)=> setMarketing(e.target.value)}/>
 
 				<h5>Research and Development</h5>
-				<input type="number" className="amount" />
-
-				<h5>Operating Income</h5>
-				<span className="calculatedAmnt"></span>
+				<input type="number" className="amount" value={research}  onChange={(e)=> setResearch(e.target.value)}/>
 
 				<h5>Depreciation</h5>
-				<input type="number" className="amount" />
+				<input type="number" className="amount" value={depreciation} onChange={(e)=> setDepreciation(e.target.value)}/>
+
+				<h5>EBITA</h5>
+				<span className="calculatedAmnt" value={operating}>{calcOperating(grossIncome, sga, marketing, research, depreciation)}</span>
 
 				<h5>Tax Expense</h5>
-				<span className="calculatedAmnt"></span>
+				<span className="calculatedAmnt" value={taxation}>{calcTax(operating)}</span>
 
 				<h5>Net Income</h5>
-				<span className="calculatedAmnt"></span>
+				<span className="calculatedAmnt" value={net}>{calcNet(operating, taxation)}</span>
 			</div>
 
 			<div className="financialRatios">

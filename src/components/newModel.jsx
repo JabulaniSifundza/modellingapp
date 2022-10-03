@@ -30,7 +30,7 @@ export default function NewModel(){
 						<section className="yearlyIncomeMetrics">
 							<div className="incomeState">
 								<div className="calendarYear">
-									<h3>{projections.calendarYear}</h3>
+									<h3>{projections.year}</h3>
 								</div>
 								<div className="metricCont">
 									<div className="expenseMetrics">

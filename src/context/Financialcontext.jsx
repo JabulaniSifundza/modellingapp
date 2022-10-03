@@ -94,6 +94,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		firstYear.interestInc = interestRate*interestIncMax;
 		firstYear.cogs = costsRate*cogsMax;
 		firstYear.sga = (costsRate*sgaMax) + (inflationRate*sgaMax);
+		firstYear.year = 2024;
 
 		return firstYear;
 
@@ -107,7 +108,8 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearTwo.interestExp =(interestRate^2)*interestExpMax;
 		yearTwo.interestInc =(interestRate^2)*interestIncMax;
 		yearTwo.cogs = (costsRate^2)*cogsMax;
-		yearTwo.sga = ((costsRate^2)*sgaMax) + ((inflationRate^2)*sgaMax)
+		yearTwo.sga = ((costsRate^2)*sgaMax) + ((inflationRate^2)*sgaMax);
+		yearTwo.year = 2024
 
 		return yearTwo;
 	}
@@ -120,6 +122,8 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearThree.interestInc =(interestRate^3)*interestIncMax;
 		yearThree.cogs = (costsRate^3)*cogsMax;
 		yearThree.sga = ((costsRate^3)*sgaMax) + ((inflationRate^3)*sgaMax);
+		yearThree.year = 2025;
+
 		return yearThree;
 	}
 	let projectionsYear4 = ()=>{
@@ -131,6 +135,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearFour.interestInc =(interestRate^4)*interestIncMax;
 		yearFour.cogs = (costsRate^4)*cogsMax;
 		yearFour.sga = ((costsRate^4)*sgaMax) + ((inflationRate^4)*sgaMax);
+		yearFour.year = 2026; 
 
 		return yearFour;
 
@@ -144,6 +149,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		yearFive.interestInc =(interestRate^5)*interestIncMax;
 		yearFive.cogs = (costsRate^5)*cogsMax;
 		yearFive.sga = ((costsRate^5)*sgaMax) + ((inflationRate^5)*sgaMax);
+		yearFive.year = 2027;
 
 		return yearFive;
 	}
