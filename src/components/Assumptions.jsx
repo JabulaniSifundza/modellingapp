@@ -1,9 +1,75 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import styled from "styled-components";
+import {useContext} from 'react';
+import {Financialcontext} from '../context/Financialcontext';
 
 export default function Assumptions(){
-	const [assumptions, setAssumptions] = useState();
 
+	const [sales, setSales] = useState();
+	const [costs, setCosts] = useState();
+	const [interest, setInterest] = useState();
+	const [inflation, setinflation] = useState();
+	const [regulation, setRegulation] = useState();
+	const {income} = useContext(Financialcontext);
+
+	let revenueMax = Math.max.apply(Math, income.map((rev)=>{
+		return rev.revenue
+	}));
+
+	let incomeMax = Math.max.apply(Math, income.map((prof)=>{
+		return prof.netIncome
+	}));
+
+	let interestExpMax = Math.max.apply(Math, income.map((prof)=>{
+		return prof.interestExpense
+	}));
+
+	let cogsMax = Math.max.apply(Math, income.map((rev)=>{
+		return rev.costOfRevenue
+	}));
+
+	let sgaMax = Math.max.apply(Math, income.map((rev)=>{
+		return rev.sellingGeneralAndAdministrativeExpenses
+	}));
+
+
+	let salesRate = (sales/100) + 1;
+	let costsRate = (costs/100) + 1;
+	let interestRate = (interest/100) + 1;
+	let inflationRate = (inflation/100) + 1;
+	
+	let regEffect = ()=>{
+		return (regulation === "More" ? (salesRate + 0.02) : (salesRate - 0.02));
+	}
+
+	let projectionsYear1 = ()=>{
+		let firstYear = {}; 
+		firstYear.revenue = (salesRate*revenueMax) + (inflationRate*revenueMax);
+		firstYear.income = salesRate*incomeMax;
+		firstYear.interestExp = interestRate*interestExpMax;
+		firstYear.cogs = costsRate*cogsMax;
+		firstYear.sga = (costsRate*sgaMax) + (inflationRate*sgaMax);
+
+		return firstYear;
+
+	}
+
+	let projectionsYear2 = ()=>{
+		let yearTwo = {};
+		yearTwo.revenue = (salesRate^2)*revenueMax 
+	}
+	let projectionsYear3 = ()=>{
+		let yearThree = {};
+		yearThree.revenue = (salesRate^3)*revenueMax
+	}
+	let projectionsYear4 = ()=>{
+		let yearFour = {};
+		yearFour.revenue = (salesRate^4)*revenueMax	
+	}
+	let projectionsYear5 = ()=>{
+		let yearFive = {};
+		yearFive.revenue = (salesRate^5)*revenueMax	
+	}
 
 
 	return <Container>
@@ -17,32 +83,27 @@ export default function Assumptions(){
 
 			<div className="assumption">
 				<label htmlFor="salesAssumptions">Sales</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="salesAssumptions" className="assumptionInput"/>
+				<input type="number" placeholder="Growth/Decline rate (%)" id="salesAssumptions" className="assumptionInput" value={sales} onChange={(e) => setSales(e.target.value)}/>
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="costAssumptions">Costs</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="costAssumptions" className="assumptionInput"/>
-			</div>
-
-			<div className="assumption">
-				<label htmlFor="TaxesAssumptions">Taxes</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="TaxesAssumptions" className="assumptionInput" />
+				<input type="number" placeholder="Growth/Decline rate (%)" id="costAssumptions" className="assumptionInput" value={costs} onChange={(e) => setCosts(e.target.value)}/>
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="interestAssumptions">Interest Rate</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="interestAssumptions" className="assumptionInput" />
+				<input type="number" placeholder="Growth/Decline rate (%)" id="interestAssumptions" className="assumptionInput" value={interest} onChange={(e) => setInterest(e.target.value)}/>
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="inflationAssumptions">Inflation</label>
-				<input type="number" placeholder="Growth/Decline rate (%)" id="inflationAssumptions" className="assumptionInput" />
+				<input type="number" placeholder="Growth/Decline rate (%)" id="inflationAssumptions" className="assumptionInput" value={inflation} onChange={(e) => setinflation(e.target.value)}/>
 			</div>
 
 			<div className="assumption">
 				<label htmlFor="moreOrLessRegulation">Regulation</label>
-				<select name="moreOrLessRegulation" id="moreOrLessRegulation" className="assumptionInput">
+				<select name="moreOrLessRegulation" id="moreOrLessRegulation" className="assumptionInput" value={regulation} onChange={(e) => setRegulation(e.target.value)}>
 				<option value="Answer" defaultValue>More or Less</option>
 					<option value="More">More</option>
 					<option value="Less">Less</option>

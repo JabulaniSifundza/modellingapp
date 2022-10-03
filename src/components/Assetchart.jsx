@@ -100,7 +100,7 @@ export default function Incomegraphs(){
 				},
 			],
 		tooltip: {
-			shared:  true,
+			shared:  false,
 			intersect: true,
 		x: {
 			format: 'YYYY'

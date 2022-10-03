@@ -20,7 +20,7 @@ export default function Searchbar() {
 
   return (<Container>
 			<div className="searchForm">
-				<input type="text" id="search" value={search} placeholder="Search Company" className="searchInput" onChange={(e) => setSearch(e.target.value)}/>
+				<input type="text" id="search" value={search} placeholder="Search Company by Ticker" className="searchInput" onChange={(e) => setSearch(e.target.value)}/>
 				<button className="searchBtn" onClick={(e) => fetchInfo(search)}>Search</button>
 			</div>
 				{
@@ -98,7 +98,7 @@ color: #FFFFFF;
 		height: 40px;
 		background-color: #3772FF;
 		color: #FFFFFF;
-		margin-right: 920px;
+		margin-right: 910px;
 		margin-top: 12px;
 		border: none;
 		border-radius: 4px;

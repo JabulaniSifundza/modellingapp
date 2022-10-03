@@ -47,14 +47,18 @@ export default function Cashcharts(){
 				style: {
 				  colors: "#FFFFFF"
 				}
-			  }
+			}
 		},
 		yaxis:{
+			title: {
+				text: 'Amount',
+				colors: "#FFFFFF"
+			  },
 			labels: {
 				style: {
 				  colors: "#FFFFFF"
 				}
-			  }
+			}
 		},
 		tooltip:{
 			x: {
