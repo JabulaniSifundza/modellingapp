@@ -1,12 +1,10 @@
 import React from 'react';
 import styled from "styled-components";
-import {NewModel} from '../components/NewModel';
+import NewModel from '../components/NewModel';
 import {FinancialInfoContextProvider} from '../context/Financialcontext';
 
 
 export default function CreatedModel() {
-
-
 
 	return (
 		<FinancialInfoContextProvider>
