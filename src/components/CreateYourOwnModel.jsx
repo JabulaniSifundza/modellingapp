@@ -15,9 +15,12 @@ export default function CreateYourOwnModel(){
 
 	const [taxation, setTaxation] = useState();
 	const [net, setNet] = useState(); 
-	const [ratios, setRatios] = useState();
 	const [operating, setOperating] = useState();
 	const [grossIncome, setgrossIncome] = useState();
+
+	const [grossMargin, setGrossMargin] = useState();
+	const [netMargin, setNetMargin] = useState();
+	const [operatingMargin, setOperatingMargin] = useState();
 
 	const calcTax = (income)=>{
 		return 0.21 * income;
@@ -34,13 +37,33 @@ export default function CreateYourOwnModel(){
 
 	const calcGross =(rev, cogs)=>{
 		return rev - cogs;
-
 	}
+
+	const calcGrossMargin = (rev, cogs) =>{
+		return (rev - cogs)/rev;
+	}
+
+	const calcOperatingMargin = (operate, rev) =>{
+		return operate/rev;
+	}
+
+	const calcNetMargin = (net, rev)=>{
+		return (net/rev)*100;
+	}
+
+
 
 	setTaxation(calcTax);
 	setNet(calcNet);
 	setOperating(calcOperating);
-	setgrossIncome(calcGross)
+	setgrossIncome(calcGross);
+
+	setGrossMargin(calcGrossMargin);
+	setNetMargin(calcNetMargin);
+	setOperatingMargin(calcOperatingMargin);
+
+
+	
 
 
 
@@ -50,6 +73,9 @@ export default function CreateYourOwnModel(){
 		calcNet();
 		calcOperating();
 		calcGross();
+		calcGrossMargin();
+		calcNetMargin();
+		calcOperatingMargin();
 
 	});
 	
@@ -101,14 +127,12 @@ export default function CreateYourOwnModel(){
 				</div>
 
 				<div>
-					<h6>Operating Income</h6>
-					<span className="calculatedAmnt"></span>
-					<h6>Operating Income</h6>
-					<span className="calculatedAmnt"></span>
-					<h6>Operating Income</h6>
-					<span className="calculatedAmnt"></span>
-					<h6>Operating Income</h6>
-					<span className="calculatedAmnt"></span>
+					<h6>Gross Margin</h6>
+					<span className="calculatedAmnt" value={grossMargin}>{calcGrossMargin(revenue, cogs)}</span>
+					<h6>Operating Margin</h6>
+					<span className="calculatedAmnt" value={operatingMargin}>{calcOperatingMargin(operating, revenue)}</span>
+					<h6>Net Margin</h6>
+					<span className="calculatedAmnt" value={netMargin}>{calcNetMargin(net, revenue)}</span>
 				</div>
 			
 			</div>
