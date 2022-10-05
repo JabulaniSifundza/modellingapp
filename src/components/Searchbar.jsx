@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {useContext} from 'react';
 import {Financialcontext} from '../context/Financialcontext';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -9,6 +10,7 @@ export default function Searchbar() {
 	const [search, setSearch] = useState();
 	const {fetchInfo, income} = useContext(Financialcontext);
 	const {sales, costs, interest, inflation, regulation, setSales, setCosts, setInterest, setinflation, setRegulation} = useContext(Financialcontext);
+	const navigate = useNavigate();
 	
 
 
@@ -72,55 +74,49 @@ export default function Searchbar() {
 			})	
 		}
 		<div className="container">
-		<div className="assumptionsContainer">
-		<div className="assumptionsHeader">
-			<h3 className="title">Assumptions</h3>
-			<h5 className="explanation">
-				This where you enter assumptions about the market and/or outlook that will inform your model.
-			</h5>
-		</div>
+			<div className="assumptionsContainer">
+				<div className="assumptionsHeader">
+					<h3 className="title">Assumptions</h3>
+					<h5 className="explanation">
+						This where you enter assumptions about the market and/or outlook that will inform your model.
+					</h5>
+				</div>
 
-		<div className="assumption">
-			<label htmlFor="salesAssumptions">Sales</label>
-			<input type="number" placeholder="Growth/Decline rate (%)" id="salesAssumptions" className="assumptionInput" value={sales} onChange={(e) => setSales(e.target.value)}/>
-		</div>
+				<div className="assumption">
+					<label htmlFor="salesAssumptions">Sales</label>
+					<input type="number" placeholder="Growth/Decline rate (%)" id="salesAssumptions" className="assumptionInput" value={sales} onChange={(e) => setSales(e.target.value)}/>
+				</div>
 
-		<div className="assumption">
-			<label htmlFor="costAssumptions">Costs</label>
-			<input type="number" placeholder="Growth/Decline rate (%)" id="costAssumptions" className="assumptionInput" value={costs} onChange={(e) => setCosts(e.target.value)}/>
-		</div>
+				<div className="assumption">
+					<label htmlFor="costAssumptions">Costs</label>
+					<input type="number" placeholder="Growth/Decline rate (%)" id="costAssumptions" className="assumptionInput" value={costs} onChange={(e) => setCosts(e.target.value)}/>
+				</div>
 
-		<div className="assumption">
-			<label htmlFor="interestAssumptions">Interest Rate</label>
-			<input type="number" placeholder="Growth/Decline rate (%)" id="interestAssumptions" className="assumptionInput" value={interest} onChange={(e) => setInterest(e.target.value)}/>
-		</div>
+				<div className="assumption">
+					<label htmlFor="interestAssumptions">Interest Rate</label>
+					<input type="number" placeholder="Growth/Decline rate (%)" id="interestAssumptions" className="assumptionInput" value={interest} onChange={(e) => setInterest(e.target.value)}/>
+				</div>
 
-		<div className="assumption">
-			<label htmlFor="inflationAssumptions">Inflation</label>
-			<input type="number" placeholder="Growth/Decline rate (%)" id="inflationAssumptions" className="assumptionInput" value={inflation} onChange={(e) => setinflation(e.target.value)}/>
-		</div>
+				<div className="assumption">
+					<label htmlFor="inflationAssumptions">Inflation</label>
+					<input type="number" placeholder="Growth/Decline rate (%)" id="inflationAssumptions" className="assumptionInput" value={inflation} onChange={(e) => setinflation(e.target.value)}/>
+				</div>
 
-		<div className="assumption">
-			<label htmlFor="moreOrLessRegulation">Regulation</label>
-			<select name="moreOrLessRegulation" id="moreOrLessRegulation" className="assumptionInput" value={regulation} onChange={(e) => setRegulation(e.target.value)}>
-			<option value="Answer" defaultValue>More or Less</option>
-				<option value="More">More</option>
-				<option value="Less">Less</option>
-			</select>
+				<div className="assumption">
+					<label htmlFor="moreOrLessRegulation">Regulation</label>
+					<select name="moreOrLessRegulation" id="moreOrLessRegulation" className="assumptionInput" value={regulation} onChange={(e) => setRegulation(e.target.value)}>
+					<option value="Answer" defaultValue>More or Less</option>
+						<option value="More">More</option>
+						<option value="Less">Less</option>
+					</select>
+				</div>
+		</div>
+		<div>
+			<button className="generateModel" onClick={()=> navigate("/createdModel")}>Create Model</button>
 		</div>
 	</div>
 
-	<div>
-	<button className="generateModel">Create Model</button>
 	
-	</div>
-		
-		
-		
-		
-		
-		
-		</div>
 
 	</Container>
   );

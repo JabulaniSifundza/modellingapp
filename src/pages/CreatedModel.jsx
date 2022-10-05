@@ -7,11 +7,11 @@ import {FinancialInfoContextProvider} from '../context/Financialcontext';
 export default function CreatedModel() {
 
 	return (
-		<FinancialInfoContextProvider>
-			<Container>
+		<Container>
+			<FinancialInfoContextProvider>
 				<NewModel />
-			</Container>
-		</FinancialInfoContextProvider>
+			</FinancialInfoContextProvider>
+		</Container>
 
 	)
 

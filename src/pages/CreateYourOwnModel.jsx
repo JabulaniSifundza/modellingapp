@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from "styled-components";
+import Sidebar from '../components/Sidebar';
 
 
 export default function CreateYourOwnModel(){
@@ -72,7 +73,12 @@ export default function CreateYourOwnModel(){
 	}
 
 	const calcGrossMargin = (rev, cogs) =>{
-		return (rev - cogs) / rev;
+		let margin = ((rev - cogs) / rev).toFixed(2);
+		let ratio = Math.round(((rev - cogs)/rev)*100);
+
+
+		return `${margin} or ${ratio}%`
+
 	}
 
 	const calcOperatingMargin = (rev, sga, marketing, depreciation, research, cogs) =>{
@@ -81,8 +87,10 @@ export default function CreateYourOwnModel(){
 		let lessDep = lessMarket - depreciation;
 		let lessRes = lessDep - research
 		let lessCogs = lessRes - cogs;
-		let margin = lessCogs/rev;
-		return Number(margin)
+		let margin = (lessCogs/rev).toFixed(2);
+		let ratio = Math.round((lessCogs/rev)*100)
+
+		return `${margin} or ${ratio}%`
 	}
 
 	const calcNetMargin = (rev, sga, marketing, depreciation, research, cogs)=>{
@@ -94,9 +102,9 @@ export default function CreateYourOwnModel(){
 		let taxAmnt = Math.round(lessCogs * 0.28);
 		let net = lessCogs - taxAmnt;
 		let margin = Math.round((net/rev)*100);
-		let ratio = (net/rev);
+		let ratio = (net/rev).toFixed(2);
 
-		return `${ratio} or ${margin}%`;
+		return( `${ratio} or ${margin}%`);
 	}
 
 	useEffect(()=>{
@@ -112,16 +120,17 @@ export default function CreateYourOwnModel(){
 
 	return (
 		<Container>
+			<Sidebar />
 			<div className="statementTitle">
 				<input type="text" className="companyName" placeholder="Enter your company name" value={company} onChange={(e)=> setCompany(e.target.value)}/>
 				<h3>Income Statement</h3>
 				<p></p>
 			</div>
 			<div className="desiredStatement">
-			<div className="statementMetric">
-				<h5 className="entry">Revenue</h5>
-				<input type="number" className="amount" value={revenue} onChange={(e)=> setRevenue(e.target.value)}/>
-			</div>
+				<div className="statementMetric">
+					<h5 className="entry">Revenue</h5>
+					<input type="number" className="amount" value={revenue} onChange={(e)=> setRevenue(e.target.value)}/>
+				</div>
 				
 				<div className="statementMetric">
 					<h5 className="entry">Cost of Revenue</h5>
@@ -163,19 +172,26 @@ export default function CreateYourOwnModel(){
 				</div>
 			</div>
 
+
 			<div className="financialRatios">
-				<div>
+				<div className="ratioTitle">
 					<h3>Financial Ratios</h3>
 					<p></p>
 				</div>
 
-				<div>
+				<div className="ratioDetails">
 					<h6>Gross Margin</h6>
 					<p className="calculatedAmnt" value={grossMargin}>{calcGrossMargin(revenue, cogs)}</p>
+					<small>This is a ratio of how much money a company retains after incurring the direct costs associated with producing the goods it sells/services it provides.</small>
+					
 					<h6>Operating Margin</h6>
 					<p className="calculatedAmnt" value={operatingMargin}>{calcOperatingMargin(revenue, sga, marketing, research, depreciation, cogs)}</p>
+					<small>This is a ratio of how much money a company makes on a dollar/rand/euro/pound of sales after paying for variable costs of production</small>
+					
 					<h6>Net Margin</h6>
 					<p className="calculatedAmnt" value={netMargin}>{calcNetMargin(revenue, sga, marketing, research, depreciation, cogs)}</p>
+					<small>This is a ratio of how much money a company makes from every dollar/rand/euro/pound of sales after accounting for all business expenses.</small>
+					
 				</div>
 			
 			</div>
@@ -213,6 +229,7 @@ background-color: #252525;
 	.statementMetric{
 		display: grid;
 		grid-template-columns: 1fr 1fr;
+		margin-top: -14px;
 		.amount{
 			margin-left: -27px;
 			align-text: center;
@@ -239,6 +256,39 @@ background-color: #252525;
 
 	}
 	
+}
+.financialRatios{
+	position: fixed;
+	height: 100%;
+	width: 320px;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	border-left: 8px solid #161616;
+	border-right: none;
+	border-top: none;
+	.ratioTitle{
+		text-align: center;
+		text-decoration: underline;
+	}
+	.ratioDetails{
+		margin-left: 6px;
+		h6{
+			font-size: 18px;
+		
+			margin-bottom: -2px;
+
+		}
+		.calculatedAmnt{
+			font-family: 'Segoe UI';
+
+		}
+		small{
+			font-family: 'Segoe UI';
+		}
+
+	}
+
 }
 
 `

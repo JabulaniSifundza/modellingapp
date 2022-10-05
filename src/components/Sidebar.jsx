@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from "styled-components";
-
 import {useNavigate} from 'react-router-dom';
 
 
@@ -11,12 +10,15 @@ export default function Sidebar(){
 	function handleNav(){
 		navigate("/CreateFinancialStatement")
 	}
+	function handleHome(){
+		navigate("/")
+	}
 	
 
 	return <Container>
 	
 		<div className="navigator">
-			<button className="goTo">Financial Models</button>
+			<button className="goTo" onClick={()=> handleHome()}>Financial Models</button>
 			<button className="goTo" onClick={()=> handleNav()}>Financial Statements</button>
 		</div>
 	

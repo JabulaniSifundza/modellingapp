@@ -1,14 +1,9 @@
 import './App.css';
-import Searchbar from './components/Searchbar';
-import Incomegraphs from './components/Incomegraphs';
-import Assetchart from './components/Assetchart';
-import Cashchart from './components/Cashchart';
-
-import Sidebar from './components/Sidebar';
-import {FinancialInfoContextProvider} from './context/Financialcontext';
 import {Route, Routes} from 'react-router-dom';
 import CreatedModel from './pages/CreatedModel';
-import CreateYourOwnModel from './components/CreateYourOwnModel';
+import CreateYourOwnModel from './pages/CreateYourOwnModel';
+import MainPage from './pages/MainPage';
+
 import styled from "styled-components";
 
 
@@ -19,16 +14,8 @@ function App() {
 		<Routes>
 			<Route exact path="/createdModel" element={<CreatedModel />}/>
 			<Route exact path="/createFinancialStatement" element={<CreateYourOwnModel/>} />
+			<Route exact path="/" element={<MainPage />} />
 		</Routes>
-	<FinancialInfoContextProvider>
-			<Sidebar/>
-			<Searchbar />
-			
-			<Incomegraphs />
-			<Assetchart />
-			<Cashchart />
-			
-	</FinancialInfoContextProvider>
 	</Container>
 		
   );
