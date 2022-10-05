@@ -52,7 +52,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 
 	let modelMetrics =[];
 
-	const CreateProjections = (income) =>{
+	const CreateProjections = (income, sales, costs, interest, inflation) =>{
 			let revenueMax = Math.max.apply(Math, income.map((rev)=>{
 				return rev.revenue
 			}));
@@ -76,12 +76,6 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			let sgaMax = Math.max.apply(Math, income.map((rev)=>{
 				return rev.sellingGeneralAndAdministrativeExpenses
 			}));
-
-
-
-
-
-
 
 
 			let salesRate = (sales/100) + 1;
@@ -173,12 +167,6 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		let newModel = [...modelMetrics, projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5];
 		return newModel;
 	}
-
-
-
-	
-	
-	
 	
 	useEffect(()=>{
 		fetchInfo();

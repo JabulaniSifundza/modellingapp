@@ -5,7 +5,7 @@ import {Financialcontext} from '../context/Financialcontext';
 
 export default function NewModel(){
 
-	const {newModel, modelMetrics} = useContext(Financialcontext);
+	const {modelMetrics} = useContext(Financialcontext);
 
 
 
