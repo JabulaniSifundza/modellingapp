@@ -5,7 +5,9 @@ import {Financialcontext} from '../context/Financialcontext';
 
 export default function NewModel(){
 
-	const {newModel} = useContext(Financialcontext);
+	const {newModel, modelMetrics} = useContext(Financialcontext);
+
+
 
 	function fuckUpAcomma(n){
 		var numerals = n.toString().split(".");
@@ -24,37 +26,37 @@ export default function NewModel(){
 			<p></p>
 		</div>
 		{
-			newModel.map((projections)=>{
+			modelMetrics.map((projections)=>{
 				return (
 					<div className="companyIncome">
 						<section className="yearlyIncomeMetrics">
 							<div className="incomeState">
 								<div className="calendarYear">
-									<h3>{projections.year}</h3>
+									<h3 key={projections.year}>{projections.year}</h3>
 								</div>
 								<div className="metricCont">
 									<div className="expenseMetrics">
 										<h4>Cost of Revenue</h4>
-										<h3>$ {fuckUpAcomma(projections.cogs)}</h3>
+										<h3 key={projections.cogs}>$ {projections.cogs}</h3>
 
 										<h4>Interest Expense</h4>
-										<h3>$ {fuckUpAcomma(projections.interestExp)}</h3>									
+										<h3 key={projections.interestExp}>$ {projections.interestExp}</h3>									
 
 										<h4>Selling, General and Administrative costs</h4>
-										<h3>$ {fuckUpAcomma(projections.sga)}</h3>
+										<h3 key={projections.sga}>$ {projections.sga}</h3>
 									</div>
 								</div>
 
 
 								<div className="incomeMetrics">
 									<h4>Revenue</h4>
-									<h3>{fuckUpAcomma(projections.revenue)}</h3>
+									<h3 key={projections.revenue}>{projections.revenue}</h3>
 
 									<h4>Interest Income</h4>
-									<h3>{fuckUpAcomma(projections.interestInc)}</h3>
+									<h3 key={projections.interestInc}>{projections.interestInc}</h3>
 
 									<h4>Net Income</h4>
-									<h3>{fuckUpAcomma(projections.income)}</h3>
+									<h3 key={projections.income}>{projections.income}</h3>
 								</div>
 							</div>
 						</section>
