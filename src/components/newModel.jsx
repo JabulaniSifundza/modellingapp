@@ -1,12 +1,11 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {useContext} from 'react';
 import {Financialcontext} from '../context/Financialcontext';
 
 export default function NewModel(){
 
-	const {modelMetrics} = useContext(Financialcontext);
-
+	const {modelMetrics, newModel} = useContext(Financialcontext);
 
 
 	function fuckUpAcomma(n){
@@ -26,7 +25,7 @@ export default function NewModel(){
 			<p></p>
 		</div>
 		{
-			modelMetrics.map((projections)=>{
+			newModel.map((projections)=>{
 				return (
 					<div className="companyIncome">
 						<section className="yearlyIncomeMetrics">

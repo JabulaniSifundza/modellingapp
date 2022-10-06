@@ -51,6 +51,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 
 
 	let modelMetrics =[];
+	let newModel = []
 
 	const CreateProjections = (income, sales, costs, interest, inflation) =>{
 			let revenueMax = Math.max.apply(Math, income.map((rev)=>{
@@ -86,10 +87,6 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			let regEffect = ()=>{
 				return (regulation === "More" ? salesRate = (salesRate + 0.02) : salesRate = (salesRate - 0.02));
 			}
-
-			
-
-		
 
 		let projectionsYear1 = ()=>{
 			let firstYear = {};
@@ -164,18 +161,23 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			return yearFive;
 			
 		}
-		let newModel = [...modelMetrics, projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5];
+		newModel = [...newModel, projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5];
+
+		newModel.push(projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5);
 		return newModel;
+
+
 	}
+	CreateProjections(income, sales, costs, interest, inflation);
 	
 	useEffect(()=>{
 		fetchInfo();
-	}, []);
+	});
 
 
 	
 
-	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash, sales, costs, interest, setSales, inflation, regulation, setCosts, setInterest, setinflation, setRegulation}}>
+	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash, sales, costs, interest, setSales, inflation, regulation, setCosts, setInterest, setinflation, setRegulation, CreateProjections, modelMetrics, newModel}}>
 	{children}
 	</Financialcontext.Provider>
 
