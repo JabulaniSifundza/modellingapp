@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Searchbar() {
 	const [search, setSearch] = useState();
 	const {fetchInfo, income} = useContext(Financialcontext);
-	const {sales, costs, interest, inflation, regulation, setSales, setCosts, setInterest, setinflation, setRegulation} = useContext(Financialcontext);
+	const {sales, costs, interest, inflation, regulation, setSales, setCosts, setInterest, setinflation, setRegulation, CreateProjections} = useContext(Financialcontext);
 	const navigate = useNavigate();
 	
 
@@ -112,7 +112,10 @@ export default function Searchbar() {
 				</div>
 		</div>
 		<div>
-			<button className="generateModel" onClick={()=> navigate("/createdModel")}>Create Model</button>
+			<button className="generateModel" onClick={()=>{
+				CreateProjections();
+				navigate("/createdModel");
+			}}>Create Model</button>
 		</div>
 	</div>
 
