@@ -3,10 +3,11 @@ import styled from "styled-components";
 import {useContext} from 'react';
 import {Financialcontext} from '../context/Financialcontext';
 
+
+
 export default function NewModel(){
 
-	const {newModel} = useContext(Financialcontext);
-
+	const {model} = useContext(Financialcontext);
 
 	function fuckUpAcomma(n){
 		var numerals = n.toString().split(".");
@@ -18,17 +19,14 @@ export default function NewModel(){
 		return numberPart.replace(thousands,",") + (decimalPart ? "." + decimalPart: "");
 	}
 
-	
-
-	
-	
 	return <Container>
+	
 		<div>
 			<h3>Model Summary</h3>
 			<p></p>
 		</div>
 		{
-			newModel.map((projections)=>{
+			model.map((projections)=>{
 				return (
 					<div className="companyIncome">
 						<section className="yearlyIncomeMetrics">
@@ -67,6 +65,7 @@ export default function NewModel(){
 				)
 			})
 		}
+		
 	</Container>
 }
 

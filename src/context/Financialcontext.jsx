@@ -14,7 +14,8 @@ export const FinancialInfoContextProvider = ({children}) =>{
 	const [interest, setInterest] = useState();
 	const [inflation, setinflation] = useState();
 	const [regulation, setRegulation] = useState();
-	
+
+	const [model, setModel] = useState([]);
 
 	const fetchInfo = async (name) =>{
 		const response = await Fmp.get(`/income-statement/${name}`,{
@@ -52,75 +53,89 @@ export const FinancialInfoContextProvider = ({children}) =>{
 	}
 
 	let newModel = [];
-	
-
 	const CreateProjections = () =>{
-		
 			let revenueMax = Math.max.apply(Math, income.map((rev)=>{
-				return rev.revenue
+				return rev.revenue;
 			}));
+			console.log(revenueMax);
 		
 			let incomeMax = Math.max.apply(Math, income.map((prof)=>{
 				return prof.netIncome
 			}));
+			console.log(incomeMax);
 		
 			let interestExpMax = Math.max.apply(Math, income.map((prof)=>{
 				return prof.interestExpense
 			}));
+			console.log(interestExpMax);
 		
 			let interestIncMax = Math.max.apply(Math, income.map((prof)=>{
+				
 				return prof.interestIncome
 			}));
+			console.log(interestIncMax);
 		
 			let cogsMax = Math.max.apply(Math, income.map((rev)=>{
 				return rev.costOfRevenue
+				
 			}));
+			console.log(cogsMax);
 		
 			let sgaMax = Math.max.apply(Math, income.map((rev)=>{
 				return rev.sellingGeneralAndAdministrativeExpenses
 			}));
+			console.log(sgaMax);
 
 
 			let salesRate = (sales/100) + 1;
+			console.log(salesRate);
 			let costsRate = (costs/100) + 1;
+			console.log(costsRate);
 			let interestRate = (interest/100) + 1;
+			console.log(interestRate);
 			let inflationRate = (inflation/100) + 1;
+			console.log(inflationRate);
 		
 			let regEffect = ()=>{
 				return (regulation === "More" ? salesRate = (salesRate + 0.02) : salesRate = (salesRate - 0.02));
-			}
 
-		let projectionsYear1 = ()=>{
-			let firstYear = {};
-			regEffect();
-			firstYear.revenue = (salesRate*revenueMax) + (inflationRate*revenueMax);
-			firstYear.income = salesRate*incomeMax;
-			firstYear.interestExp = interestRate*interestExpMax;
-			firstYear.interestInc = interestRate*interestIncMax;
-			firstYear.cogs = costsRate*cogsMax;
-			firstYear.sga = (costsRate*sgaMax) + (inflationRate*sgaMax);
-			firstYear.year = 2024;
+			}
+			console.log(regEffect());
+
+			function year1Projections(){
+				let firstYear = {};
+				regEffect();
+				firstYear.revenue = (salesRate*revenueMax) + (inflationRate*revenueMax);
+				firstYear.income = salesRate*incomeMax;
+				firstYear.interestExp = interestRate*interestExpMax;
+				firstYear.interestInc = interestRate*interestIncMax;
+				firstYear.cogs = costsRate*cogsMax;
+				firstYear.sga = (costsRate*sgaMax) + (inflationRate*sgaMax);
+				firstYear.year = 2024;
+				console.log(firstYear);
+				newModel.push(firstYear);
+				
+			}
 			
 
-			return firstYear;
+		
 
-		}
-
-		let projectionsYear2 = ()=>{
+		function year2Projections(){
 			let yearTwo = {};
 			regEffect();
 			yearTwo.revenue = (salesRate^2)*revenueMax + ((inflationRate^2)*revenueMax);
 			yearTwo.income = (salesRate^2)*incomeMax;
-			yearTwo.interestExp =(interestRate^2)*interestExpMax;
-			yearTwo.interestInc =(interestRate^2)*interestIncMax;
+			yearTwo.interestExp = (interestRate^2)*interestExpMax;
+			yearTwo.interestInc = (interestRate^2)*interestIncMax;
 			yearTwo.cogs = (costsRate^2)*cogsMax;
 			yearTwo.sga = ((costsRate^2)*sgaMax) + ((inflationRate^2)*sgaMax);
 			yearTwo.year = 2024;
-		
-
-			return yearTwo;
+			console.log(yearTwo);
+			newModel.push(yearTwo);
 		}
-		let projectionsYear3 = ()=>{
+
+
+		function year3Projections(){
 			let yearThree = {};
 			regEffect();
 			yearThree.revenue = (salesRate^3)*revenueMax + ((inflationRate^3)*revenueMax);
@@ -130,11 +145,11 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			yearThree.cogs = (costsRate^3)*cogsMax;
 			yearThree.sga = ((costsRate^3)*sgaMax) + ((inflationRate^3)*sgaMax);
 			yearThree.year = 2025;
-
-
-			return yearThree;
+			console.log(yearThree);
+			
+			newModel.push(yearThree);
 		}
-		let projectionsYear4 = ()=>{
+		function year4Projections(){
 			let yearFour = {};
 			regEffect();
 			yearFour.revenue = (salesRate^4)*revenueMax + ((inflationRate^4)*revenueMax);
@@ -144,11 +159,12 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			yearFour.cogs = (costsRate^4)*cogsMax;
 			yearFour.sga = ((costsRate^4)*sgaMax) + ((inflationRate^4)*sgaMax);
 			yearFour.year = 2026; 
+			console.log(yearFour);
 
-			return yearFour;
+			newModel.push(yearFour);
 
 		}
-		let projectionsYear5 = ()=>{
+		function year5Projections(){
 			let yearFive = {};
 			regEffect();
 			yearFive.revenue = (salesRate^5)*revenueMax + ((inflationRate^5)*revenueMax);
@@ -158,23 +174,37 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			yearFive.cogs = (costsRate^5)*cogsMax;
 			yearFive.sga = ((costsRate^5)*sgaMax) + ((inflationRate^5)*sgaMax);
 			yearFive.year = 2027;
+			console.log(yearFive);
 			
 
-			return yearFive;
+			newModel.push(yearFive);
 			
 		}
-		newModel = [...newModel, projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5];
-		console.log(newModel)
+		//newModel = [...newModel, projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5];
+		//newModel.push(projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4)
 		//newModel.push(projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5);
-		return newModel;
-	}
+		//console.log(newModel);
+		//return newModel;
+		year1Projections();
+		year2Projections();
+		year3Projections();
+		year4Projections();
+		year5Projections();
+		console.log(newModel);
+		
+		setModel(newModel);	
+	}	
 	
-
+	
 	useEffect(()=>{
 		fetchInfo();
 	},[]);
 
-	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash, sales, costs, interest, setSales, inflation, regulation, setCosts, setInterest, setinflation, setRegulation, CreateProjections}}>
+	//useEffect(()=>{
+	//	CreateProjections()
+	//}, [])
+
+	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash, sales, costs, interest, setSales, inflation, regulation, setCosts, setInterest, setinflation, setRegulation, CreateProjections, newModel, model}}>
 	{children}
 	</Financialcontext.Provider>
 

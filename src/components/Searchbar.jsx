@@ -4,16 +4,12 @@ import {useContext} from 'react';
 import {Financialcontext} from '../context/Financialcontext';
 import { useNavigate } from "react-router-dom";
 
-
-
 export default function Searchbar() {
 	const [search, setSearch] = useState();
 	const {fetchInfo, income} = useContext(Financialcontext);
 	const {sales, costs, interest, inflation, regulation, setSales, setCosts, setInterest, setinflation, setRegulation, CreateProjections} = useContext(Financialcontext);
 	const navigate = useNavigate();
 	
-
-
 	function fuckUpAcomma(n){
 		var numerals = n.toString().split(".");
 
