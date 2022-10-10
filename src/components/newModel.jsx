@@ -9,6 +9,8 @@ export default function NewModel(){
 
 	const {model} = useContext(Financialcontext);
 
+	//GET NEW MODEL SAVED IN LOCALSTORAGE AND USE THAT TO RENDER
+
 	function fuckUpAcomma(n){
 		var numerals = n.toString().split(".");
 

@@ -191,7 +191,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		year4Projections();
 		year5Projections();
 		console.log(newModel);
-		
+		//Save created model in LocalStorage
 		setModel(newModel);	
 	}	
 	
