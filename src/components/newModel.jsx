@@ -2,19 +2,14 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import {useContext} from 'react';
 import {Financialcontext} from '../context/Financialcontext';
+import { useNavigate } from "react-router-dom";
 
 
 
 export default function NewModel(){
-
-	const {model} = useContext(Financialcontext);
-
-	//GET NEW MODEL SAVED IN LOCALSTORAGE AND USE THAT TO RENDER
-
+//GET NEW MODEL SAVED IN LOCALSTORAGE AND USE THAT TO RENDER
 	const [createdModel, setCreatedModel] = useState(JSON.parse(localStorage.getItem("newModel")));
-
-	
-
+	const navigate = useNavigate();
 	function fuckUpAcomma(n){
 		var numerals = n.toString().split(".");
 
@@ -26,6 +21,10 @@ export default function NewModel(){
 	}
 
 	return <Container>
+
+	<div>
+		<svg className="backBtn" onClick={()=> navigate(-1)}></svg>
+	</div>
 	
 		<div>
 			<h3>Model Summary</h3>
@@ -52,8 +51,6 @@ export default function NewModel(){
 										<h3 key={projections.sga}>$ {fuckUpAcomma(projections.sga)}</h3>
 									</div>
 								</div>
-
-
 								<div className="incomeMetrics">
 									<h4>Revenue</h4>
 									<h3 key={projections.revenue}>{fuckUpAcomma(projections.revenue)}</h3>
@@ -71,10 +68,8 @@ export default function NewModel(){
 				)
 			})
 		}
-		
 	</Container>
 }
-
 const Container = styled.div`
 margin-right: auto;
 margin-left: auto;
@@ -91,6 +86,8 @@ color: #FFFFFF;
 	border-bottom: 2px solid #FFFFFF;
 	.incomeState{
 		margin-top: 16px;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
 		width: 90%;
 		.calendarYear{
 			width: 100%;
@@ -104,8 +101,7 @@ color: #FFFFFF;
 			}
 		}
 		.metricCont{
-			display: grid;
-			grid-template-columns: 1fr 1fr;
+			
 			.expenseMetrics{
 				display: flex;
 				border-right: 1px solid #FFFFFF;

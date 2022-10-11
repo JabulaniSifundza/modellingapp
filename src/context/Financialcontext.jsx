@@ -57,51 +57,37 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			let revenueMax = Math.max.apply(Math, income.map((rev)=>{
 				return rev.revenue;
 			}));
-			console.log(revenueMax);
-		
+			
 			let incomeMax = Math.max.apply(Math, income.map((prof)=>{
 				return prof.netIncome
 			}));
-			console.log(incomeMax);
-		
+			
 			let interestExpMax = Math.max.apply(Math, income.map((prof)=>{
 				return prof.interestExpense
 			}));
-			console.log(interestExpMax);
-		
+			
 			let interestIncMax = Math.max.apply(Math, income.map((prof)=>{
 				
 				return prof.interestIncome
 			}));
-			console.log(interestIncMax);
-		
+			
 			let cogsMax = Math.max.apply(Math, income.map((rev)=>{
-				return rev.costOfRevenue
-				
+				return rev.costOfRevenue	
 			}));
-			console.log(cogsMax);
-		
+			
 			let sgaMax = Math.max.apply(Math, income.map((rev)=>{
 				return rev.sellingGeneralAndAdministrativeExpenses
 			}));
-			console.log(sgaMax);
-
-
+			
 			let salesRate = (sales/100) + 1;
-			console.log(salesRate);
 			let costsRate = (costs/100) + 1;
-			console.log(costsRate);
 			let interestRate = (interest/100) + 1;
-			console.log(interestRate);
 			let inflationRate = (inflation/100) + 1;
-			console.log(inflationRate);
 		
 			let regEffect = ()=>{
 				return (regulation === "More" ? salesRate = (salesRate + 0.02) : salesRate = (salesRate - 0.02));
-
 			}
-			console.log(regEffect());
-
+			
 			function year1Projections(){
 				let firstYear = {};
 				regEffect();
@@ -112,14 +98,10 @@ export const FinancialInfoContextProvider = ({children}) =>{
 				firstYear.cogs = costsRate*cogsMax;
 				firstYear.sga = (costsRate*sgaMax) + (inflationRate*sgaMax);
 				firstYear.year = 2024;
-				console.log(firstYear);
+				
 				newModel.push(firstYear);
 				
-			}
-			
-
-		
-
+			}			
 		function year2Projections(){
 			let yearTwo = {};
 			regEffect();
@@ -130,11 +112,9 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			yearTwo.cogs = (costsRate^2)*cogsMax;
 			yearTwo.sga = ((costsRate^2)*sgaMax) + ((inflationRate^2)*sgaMax);
 			yearTwo.year = 2024;
-			console.log(yearTwo);
+			
 			newModel.push(yearTwo);
 		}
-
-
 		function year3Projections(){
 			let yearThree = {};
 			regEffect();
@@ -145,7 +125,7 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			yearThree.cogs = (costsRate^3)*cogsMax;
 			yearThree.sga = ((costsRate^3)*sgaMax) + ((inflationRate^3)*sgaMax);
 			yearThree.year = 2025;
-			console.log(yearThree);
+			
 			
 			newModel.push(yearThree);
 		}
@@ -159,10 +139,8 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			yearFour.cogs = (costsRate^4)*cogsMax;
 			yearFour.sga = ((costsRate^4)*sgaMax) + ((inflationRate^4)*sgaMax);
 			yearFour.year = 2026; 
-			console.log(yearFour);
-
+			
 			newModel.push(yearFour);
-
 		}
 		function year5Projections(){
 			let yearFive = {};
@@ -174,11 +152,8 @@ export const FinancialInfoContextProvider = ({children}) =>{
 			yearFive.cogs = (costsRate^5)*cogsMax;
 			yearFive.sga = ((costsRate^5)*sgaMax) + ((inflationRate^5)*sgaMax);
 			yearFive.year = 2027;
-			console.log(yearFive);
 			
-
 			newModel.push(yearFive);
-			
 		}
 		//newModel = [...newModel, projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4, projectionsYear5];
 		//newModel.push(projectionsYear1, projectionsYear2, projectionsYear3, projectionsYear4)
@@ -190,7 +165,6 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		year3Projections();
 		year4Projections();
 		year5Projections();
-		console.log(newModel);
 		//Save created model in LocalStorage
 		localStorage.setItem('newModel', JSON.stringify(newModel));
 		setModel(newModel);	
