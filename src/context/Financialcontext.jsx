@@ -169,16 +169,12 @@ export const FinancialInfoContextProvider = ({children}) =>{
 		localStorage.setItem('newModel', JSON.stringify(newModel));
 		setModel(newModel);	
 	}	
-	
-	
 	useEffect(()=>{
 		fetchInfo();
 	},[]);
-
 	//useEffect(()=>{
 	//	CreateProjections()
 	//}, [])
-
 	return <Financialcontext.Provider value={{fetchInfo, income, balance, cash, sales, costs, interest, setSales, inflation, regulation, setCosts, setInterest, setinflation, setRegulation, CreateProjections, newModel, model}}>
 	{children}
 	</Financialcontext.Provider>
